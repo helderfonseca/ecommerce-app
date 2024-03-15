@@ -1,8 +1,9 @@
-import { getProducts } from "../../controllers/productController.js"
-import { postProduct } from "../../controllers/productController.js"
-import { updateProduct } from "../../controllers/productController.js"
-import { deleteProduct } from "../../controllers/productController.js"
-import { getProduct } from "../../controllers/productController.js"
+import { 
+  getProducts, 
+  getProduct, 
+  postProduct, 
+  updateProduct, 
+  deleteProduct } from "../../controllers/productController.js"
 
 const getProductsOptions = {
   schema: {
@@ -18,8 +19,7 @@ const getProductsOptions = {
         }
       }
     }
-  }, 
-  preHandler: async (request, reply) => {},
+  },
   handler: getProducts
 }
 
@@ -35,7 +35,6 @@ const getProductOptions = {
       }
     }
   },
-  preHandler: async(request, reply) => {},
   handler: getProduct
 }
 
@@ -58,7 +57,6 @@ const postProductOptions = {
         }
       }
   },
-  preHandler: async(request, reply) => {},
   handler: postProduct
 }
 
@@ -81,7 +79,6 @@ const updateProductOptions = {
         }
     }
   },
-  preHandler: async(request, reply) => {},
   handler: updateProduct
 }
 
@@ -96,7 +93,6 @@ const deleteProductOptions = {
       }
     }
   },
-  preHandler: async(request, reply) => {},
   handler: deleteProduct
 }
 

@@ -7,7 +7,11 @@ const fastify = Fastify({
 })
 
 // Declare a route
-await fastify.register(productRoutes, { prefix: '/v1' })
+fastify
+    .register(productRoutes, { prefix: '/v1' })
+    .after(err => {
+      if (err) throw err
+    })
 
 // Run the server!
 const start = async() => {
