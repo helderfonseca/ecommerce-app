@@ -10,7 +10,6 @@ const fastify = Fastify({
 await fastify.register(productRoutes, { prefix: '/v1' })
 
 // Run the server!
-
 const start = async() => {
   try {
     await fastify.listen({ port: 3000 })

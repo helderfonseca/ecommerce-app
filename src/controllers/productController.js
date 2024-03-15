@@ -1,5 +1,5 @@
 import { v4 as uuidv4 } from 'uuid'
-import products from '../data.js'
+import { products } from '../data.js'
 
 export const getProducts = async (request, reply) => {
   reply.send(products)
@@ -7,10 +7,12 @@ export const getProducts = async (request, reply) => {
 
 export const getProduct = async (request, reply) => {
   const id = request.params.id
-  let product = products.find(item => item.id === id)
+  const product = products.find(item => item.id === id)
 
   if (!product) {
-    reply.status(404).send('Product not found!')
+    reply.status(404).send({
+      message: 'Product not Found!'
+    })
   }
 
   reply.send(product);
@@ -31,23 +33,34 @@ export const postProduct = async (request, reply) => {
 }
 
 export const updateProduct = async (request, reply) => {
-  const id  = request.params.id
+  const { id }  = request.params
   const { name } = request.body
 
-  let product = products.find(item => item.id === id)
+  const product = products.find(item => item.id === id)
 
   if (!product) {
     reply.status(404).send('No product found!')
   }
 
-  product = { ...product, name }
-  products = products.map(item => (item.id === id ? product : item))
+  product.name = name
 
   reply.send(product)
 }
 
 export const deleteProduct = async (request, reply) => {
-  const id = request.params.id
-  products = products.filter(product => product.id !== id)
-  reply.send('Product deleted!')
+  const { id } = request.params
+
+  if (!id) {
+    reply.status(500).send({
+      message: 'No parameter provided!'
+    })
+  }
+
+  const productDeleted = products.find(item => item.id === id)
+
+  products.filter(product => product.id !== id)
+
+  reply.send({
+    message: `Product ${productDeleted.name} was deleted!`
+  })
 }
